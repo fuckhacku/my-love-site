@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Для Мирры ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff6a88, #ff99ac);
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    .container {
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 48px;
+    }
+
+    p {
+      font-size: 20px;
+      max-width: 650px;
+      margin: 15px auto;
+    }
+
+    .timer {
+      font-size: 30px;
+      margin: 25px 0;
+      font-weight: bold;
+    }
+
+    button {
+      background: white;
+      color: #ff4d6d;
+      border: none;
+      padding: 15px 25px;
+      font-size: 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 15px;
+    }
+
+    .section {
+      display: none;
+      margin-top: 30px;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .gallery img {
+      width: 200px;
+      margin: 10px;
+      border-radius: 15px;
+      transition: 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Сердечки */
+    .heart {
+      position: fixed;
+      top: -10px;
+      font-size: 20px;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(100vh); }
+    }
+
+    /* Всплывающие слова */
+    .floating-text {
+      position: fixed;
+      bottom: 0;
+      font-size: 20px;
+      animation: rise 4s linear forwards;
+    }
+
+    @keyframes rise {
+      to {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <h1>Мирра, я тебя люблю ❤️</h1>
+
+  <p>
+    Даже когда ты далеко, ты всё равно рядом со мной…  
+    В мыслях, в сердце, в каждом дне.
+  </p>
+
+  <div class="timer" id="timer"></div>
+
+<button onclick="showSection('story')">Наша история 📖</button> <button onclick="showSection('memories')">Воспоминания ✨</button> <button onclick="showSection('final')">Открой 💌</button>
+
+  <!-- История -->
+
+  <div class="section" id="story">
+    <p>
+      Помнишь, как всё началось?  
+      Я тогда даже не представлял, насколько ты станешь для меня важной.
+    </p>
+    <p>
+      С каждым днём ты становилась ближе…  
+      И теперь я не представляю свою жизнь без тебя.
+    </p>
+  </div>
+
+  <!-- Фото -->
+
+  <div class="section" id="memories">
+    <div class="gallery">
+      <img src="photo1.jpg">
+      <img src="photo2.jpg">
+      <img src="photo3.jpg">
+    </div>
+  </div>
+
+  <!-- Финал -->
+
+  <div class="section" id="final">
+    <p>
+      Я считаю секунды до нашей встречи.  
+      И когда ты вернёшься — я просто обниму тебя и не отпущу.
+    </p>
+    <p>
+      Ты — моя любовь.  
+      Жду тебя 4 августа ❤️
+    </p>
+  </div>
+</div>
+
+<script>
+  // Таймер
+  const targetDate = new Date("August 4, 2026 00:00:00").getTime();
+  const timer = document.getElementById("timer");
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    timer.innerHTML = `До встречи: ${d}д ${h}ч ${m}м ${s}с`;
+  }, 1000);
+
+  // Переключение блоков
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(el => el.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+  }
+
+  // Сердечки
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+  setInterval(createHeart, 300);
+
+  // Всплывающие слова
+  const words = ["люблю тебя", "скучаю", "жду тебя", "моя Мирра", "❤️"];
+  function createText() {
+    const el = document.createElement("div");
+    el.className = "floating-text";
+    el.innerText = words[Math.floor(Math.random() * words.length)];
+    el.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+  }
+  setInterval(createText, 1500);
+</script>
+
+</body>
+</html>
